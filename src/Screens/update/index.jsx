@@ -24,7 +24,7 @@ export class UpdateForm extends React.Component {
             remarks: '',
             noOfDays: '',
             active: false,
-            PaidLeave: false,
+            isPaid: false,
             isConvertibleToCash: false,
         }
     }
