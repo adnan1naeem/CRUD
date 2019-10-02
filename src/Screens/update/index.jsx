@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 const Axios = require('axios');
 
 export const headers = {
-    'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1Njk5OTgyNTAsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.hfcqERKCG3x9iokXIjadu2gNq3DLOOUa12JTAtOoq9Y'
+    'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzAwMDQwNjMsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.BuI-jvRn5e6xnxGkDZlmseaJWnB_fII5190MhWgjugQ'
 }
 
 export class UpdateForm extends React.Component {
@@ -20,10 +20,10 @@ export class UpdateForm extends React.Component {
         super();
         this.state = {
             code: '',
-            PaySlip: '',
-            description: '',
-            NoOfDays: '',
-            Active: false,
+            nameInPayslip: '',
+            remarks: '',
+            noOfDays: '',
+            active: false,
             PaidLeave: false,
             isConvertibleToCash: false,
         }
@@ -37,7 +37,7 @@ export class UpdateForm extends React.Component {
 
         Axios.get('http://acerondrug.com:8888/api/leavetypes', { headers: headers }).then((response) => {
             const Item = response.data.filter((Items) => Items.leaveTypeID === this.props.history.location.state.detail.leaveTypeID)
-            this.setState({ isConvertibleToCash: Item[0].isConvertibleToCash, code: Item[0].code, PaySlip: Item[0].PaySlip, NoOfDays: Item[0].NoOfDays, Active: Item[0].Active })
+            this.setState({ nameInPayslip: Item[0].nameInPayslip, remarks: Item[0].remarks, isConvertibleToCash: Item[0].isConvertibleToCash, isPaid: Item[0].isPaid, code: Item[0].code, nameInPayslip: Item[0].nameInPayslip, noOfDays: Item[0].noOfDays, active: Item[0].active })
 
         }).catch((error) => {
             alert(error);
@@ -57,12 +57,12 @@ export class UpdateForm extends React.Component {
             {
                 "leaveTypeID": this.props.history.location.state.detail.leaveTypeID,
                 "code": values.code,
-                "nameInPayslip": values.PaySlip,
-                "remarks": values.description,
-                "noOfDays": values.NoOfDays,
-                "isPaid": values.PaidLeave,
+                "nameInPayslip": values.nameInPayslip,
+                "remarks": values.remarks,
+                "noOfDays": values.noOfDays,
+                "isPaid": values.isPaid,
                 "isConvertibleToCash": values.isConvertibleToCash,
-                "active": values.Active,
+                "active": values.active,
                 "deleted": false,
                 "createdOn": new Date(),
                 "lastModified": new Date()
@@ -85,19 +85,19 @@ export class UpdateForm extends React.Component {
         console.log('sssssss', this.state);
         const {
             code,
-            PaySlip,
-            description,
-            NoOfDays,
-            PaidLeave,
+            nameInPayslip,
+            remarks,
+            noOfDays,
+            isPaid,
             isConvertibleToCash,
-            Active
+            active
         } = this.state;
         return (
             <Formik
                 enableReinitialize
-                initialValues={{ code, PaySlip, description, NoOfDays, PaidLeave, isConvertibleToCash, Active }}
+                initialValues={{ code, nameInPayslip, remarks, noOfDays, isPaid, isConvertibleToCash, active }}
                 onSubmit={this.onSubmit}
-                render={({ values, handleSubmit, handleChange, onChange
+                render={({ values, handleSubmit, handleChange,
                 }) => (
                         <form onSubmit={handleSubmit}>
                             <div style={{
@@ -121,20 +121,20 @@ export class UpdateForm extends React.Component {
 
 
                                             <TextField
-                                                name='description'
+                                                name='remarks'
                                                 variant="outlined"
                                                 label="description"
                                                 fullWidth
-                                                value={values.description}
+                                                value={values.remarks}
                                                 onChange={handleChange}
                                                 margin="normal"
                                             />
                                             <TextField
-                                                name='PaySlip'
+                                                name='nameInPayslip'
                                                 variant="outlined"
-                                                label="PaySlip"
+                                                label="NameInPayslip"
                                                 fullWidth
-                                                value={values.PaySlip}
+                                                value={values.nameInPayslip}
                                                 onChange={handleChange}
                                                 margin="normal"
                                             />
@@ -142,14 +142,14 @@ export class UpdateForm extends React.Component {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    name='PaidLeave'
-                                                    checked={values.PaidLeave}
-                                                    value={values.PaidLeave}
-                                                    onChange={handleChange('PaidLeave')}
+                                                    name='isPaid'
+                                                    checked={values.isPaid}
+                                                    value={values.isPaid}
+                                                    onChange={handleChange('isPaid')}
 
                                                 />
                                             }
-                                            label="PaidLeave"
+                                            label="isPaid"
                                         />
                                         <FormControlLabel
                                             control={
@@ -166,20 +166,20 @@ export class UpdateForm extends React.Component {
                                         />
                                         <TextField
                                             fullWidth
-                                            name='NoOfDays'
+                                            name='noOfDays'
                                             variant="outlined"
                                             label="Max No of Days"
-                                            value={values.NoOfDays}
+                                            value={values.noOfDays}
                                             onChange={handleChange}
                                             margin="normal"
                                         />
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    name='Active'
-                                                    checked={values.Active}
-                                                    value={values.Active}
-                                                    onChange={handleChange('Active')}
+                                                    name='active'
+                                                    checked={values.active}
+                                                    value={values.active}
+                                                    onChange={handleChange('active')}
 
 
                                                 />
