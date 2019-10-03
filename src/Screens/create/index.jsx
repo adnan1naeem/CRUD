@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import Card from '@material-ui/core/Card';
 import Checkbox from '@material-ui/core/Checkbox';
 import CloseIcon from '@material-ui/icons/Close';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,7 +14,7 @@ const Axios = require('axios');
 export const headers = {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzAwMDQwNjMsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.BuI-jvRn5e6xnxGkDZlmseaJWnB_fII5190MhWgjugQ'
+    'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzAwODM4MTIsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.3txopstlre2yAsfm3Mb0A0BY1fHUgXf1IOZiMFliXwQ'
 }
 
 export class CreateForm extends React.Component {
@@ -66,105 +67,108 @@ export class CreateForm extends React.Component {
                                 flexDirection: 'row',
                                 alignItems: 'center', alignContent: 'center', alignSelf: 'center'
                             }} >
-                                <div style={{ width: 600, paddingLeft: 20, paddingRight: 20 }}>
-                                    <div style={{ flex: 1, flexDirection: 'column' }}>
-                                        <h5>Create LeaveType</h5>
-                                        <div style={{ flex: 1 }}>
-                                            <TextField
-                                                name='code'
-                                                placeholder='Code'
-                                                variant="outlined"
-                                                id="standard-name"
-                                                label="Code"
-                                                value={values.code}
-                                                onChange={handleChange}
-                                                fullWidth
-                                                margin="normal"
-                                            />
-                                            <TextField
-                                                name='description'
-                                                variant="outlined"
-                                                label="description"
-                                                fullWidth
-                                                value={values.description}
-                                                onChange={handleChange}
-                                                margin="normal"
-                                            />
+                                <div style={{ height: '100%', alignContent: 'center', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Card style={{ padding: 8, marginLeft: 400, marginTop: 150, justifyContent: 'center', width: 600 }}>
+                                        <div style={{ width: 600, paddingLeft: 20, paddingRight: 20 }}>
+                                            <div style={{ flex: 1, flexDirection: 'column' }}>
+                                                <h5>Create LeaveType</h5>
+                                                <div style={{ flex: 1 }}>
+                                                    <TextField
+                                                        name='code'
+                                                        placeholder='Code'
+                                                        variant="outlined"
+                                                        id="standard-name"
+                                                        label="Code"
+                                                        value={values.code}
+                                                        onChange={handleChange}
+                                                        fullWidth
+                                                        margin="normal"
+                                                    />
+                                                    <TextField
+                                                        name='description'
+                                                        variant="outlined"
+                                                        label="description"
+                                                        fullWidth
+                                                        value={values.description}
+                                                        onChange={handleChange}
+                                                        margin="normal"
+                                                    />
 
-                                            <div style={{ flex: 1 }}>
+                                                    <div style={{ flex: 1 }}>
+                                                        <TextField
+                                                            name='PaySlip'
+                                                            variant="outlined"
+                                                            label="PaySlip"
+                                                            fullWidth
+                                                            value={values.PaySlip}
+                                                            onChange={handleChange}
+                                                            margin="normal"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            name='isConvertibleToCash'
+                                                            checked={values.isConvertibleToCash}
+                                                            value={values.isConvertibleToCash}
+                                                            onChange={handleChange('isConvertibleToCash')}
+
+
+                                                        />
+                                                    }
+                                                    label="ConvertibleToCash"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            name='PaidLeave'
+                                                            checked={values.PaidLeave}
+                                                            value={values.PaidLeave}
+                                                            onChange={handleChange('PaidLeave')}
+
+                                                        />
+                                                    }
+                                                    label="PaidLeave"
+                                                />
+
                                                 <TextField
-                                                    name='PaySlip'
-                                                    variant="outlined"
-                                                    label="PaySlip"
                                                     fullWidth
-                                                    value={values.PaySlip}
+                                                    name='NoOfDays'
+                                                    variant="outlined"
+                                                    label="Max No of Days"
+                                                    value={values.NoOfDays}
                                                     onChange={handleChange}
                                                     margin="normal"
                                                 />
+
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            name='Active'
+                                                            checked={values.Active}
+                                                            value={values.Active}
+                                                            onChange={handleChange('Active')}
+
+
+                                                        />
+                                                    }
+                                                    label="Active"
+                                                />
+                                            </div>
+
+                                            <div style={{ float: 'right', flex: 1, flexDirection: 'row-reverse' }}>
+                                                <IconButton color='primary' type='submit'>
+                                                    <SuccessIcon />
+                                                </IconButton>
+                                                <IconButton onClick={() => this.props.history.push('/')} >
+                                                    <CloseIcon color='red' />
+                                                </IconButton>
                                             </div>
                                         </div>
-
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    name='isConvertibleToCash'
-                                                    checked={values.isConvertibleToCash}
-                                                    value={values.isConvertibleToCash}
-                                                    onChange={handleChange('isConvertibleToCash')}
-
-
-                                                />
-                                            }
-                                            label="ConvertibleToCash"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    name='PaidLeave'
-                                                    checked={values.PaidLeave}
-                                                    value={values.PaidLeave}
-                                                    onChange={handleChange('PaidLeave')}
-
-                                                />
-                                            }
-                                            label="PaidLeave"
-                                        />
-
-                                        <TextField
-                                            fullWidth
-                                            name='NoOfDays'
-                                            variant="outlined"
-                                            label="Max No of Days"
-                                            value={values.NoOfDays}
-                                            onChange={handleChange}
-                                            margin="normal"
-                                        />
-
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    name='Active'
-                                                    checked={values.Active}
-                                                    value={values.Active}
-                                                    onChange={handleChange('Active')}
-
-
-                                                />
-                                            }
-                                            label="Active"
-                                        />
-                                    </div>
-
-                                    <div style={{ float: 'right', flex: 1, flexDirection: 'row-reverse' }}>
-                                        <IconButton color='primary' type='submit'>
-                                            <SuccessIcon />
-                                        </IconButton>
-                                        <IconButton onClick={() => this.props.history.push('/')} >
-                                            <CloseIcon color='red' />
-                                        </IconButton>
-                                    </div>
+                                    </Card>
                                 </div>
-
                             </div>
 
 
