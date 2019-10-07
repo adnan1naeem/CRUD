@@ -8,10 +8,11 @@ import MaterialTable from 'material-table';
 const Axios = require('axios');
 
 
+const token = localStorage.getItem('token')
 
 
 export const headers = {
-	'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzA0Njg0NzcsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.kQGa72jLgDRn0pi1Kt30C8c3PF2S_UkeUW1QKp_ddg4'
+	'Authorization': `Bearer ${token}`
 }
 export class SimpleTable extends React.Component {
 
