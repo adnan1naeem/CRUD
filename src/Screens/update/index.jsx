@@ -20,21 +20,24 @@ export const headers = {
 
 
 
-// const SignupSchema = Yup.object().shape({
-//     code: Yup.string()
-//         .required('Please enter code')
-//         .min(3, 'code is too short!'),
+const SignupSchema = Yup.object().shape({
+    code: Yup.string()
+        .required('Please enter code')
+        .min(3, 'code is too short!')
+        .max(30, 'code is too large!'),
 
-//     description: Yup.string()
-//         .min(2, 'description is too short!')
-//         .max(100, 'description is too long!')
-//         .required('Please enter  description!'),
-//     PaySlip: Yup.string()
-//         .required('Required'),
-//     NoOfDays: Yup.number()
-//         .required('Required'),
+    description: Yup.string()
+        .min(2, 'description is too short!')
+        .max(100, 'description is too long!')
+        .required('Please enter  description!'),
+    PaySlip: Yup.string()
+        .max(30, 'description is too long!')
 
-// });
+        .required('Required'),
+    NoOfDays: Yup.number()
+        .required('Required'),
+
+});
 
 export class UpdateForm extends React.Component {
 
@@ -119,11 +122,14 @@ export class UpdateForm extends React.Component {
                 enableReinitialize
                 initialValues={{ code, nameInPayslip, remarks, noOfDays, isPaid, isConvertibleToCash, active }}
                 onSubmit={this.onSubmit}
-                // validationSchema={SignupSchema}
+                validationSchema={SignupSchema}
 
                 render={({ errors, values, handleSubmit, handleChange,
                 }) => {
+
                     const descriptionLength = values.remarks.length;
+                    const nameInPayslipLength = values.PaySlip.length;
+                    const codeLength = values.code.length;
 
                     return (
                         <div style={{ height: '100%', alignContent: 'center', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -147,6 +153,9 @@ export class UpdateForm extends React.Component {
                                                         error={!!errors.code}
                                                         value={values.code}
                                                         required
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">{`${codeLength}/30`}</InputAdornment>,
+                                                        }}
                                                         onChange={handleChange}
                                                         fullWidth
                                                         margin="normal"
@@ -174,6 +183,9 @@ export class UpdateForm extends React.Component {
                                                         label="NameInPayslip"
                                                         required
                                                         fullWidth
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">{`${nameInPayslipLength}/30`}</InputAdornment>,
+                                                        }}
                                                         value={values.nameInPayslip}
                                                         onChange={handleChange}
                                                         margin="normal"
