@@ -194,8 +194,9 @@ export class UpdateForm extends React.Component {
                                                 <FormControlLabel
                                                     control={
                                                         <Checkbox
+                                                            disabled={values.isPaid === true ? false : true}
                                                             name='isConvertibleToCash'
-                                                            checked={values.isConvertibleToCash}
+                                                            checked={values.isPaid === true ? true : false}
                                                             value={values.isConvertibleToCash}
                                                             onChange={handleChange('isConvertibleToCash')}
 
