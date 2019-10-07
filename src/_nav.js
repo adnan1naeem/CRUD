@@ -19,6 +19,11 @@ export default {
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
     {
+      name: 'Crud',
+      url: '/theme/list',
+      icon: 'icon-drop',
+    },
+    {
       name: 'Colors',
       url: '/theme/colors',
       icon: 'icon-drop',

@@ -1,4 +1,7 @@
+import { CreateForm } from './Screens/create/'
 import React from 'react';
+import { SimpleTable } from './Screens/list/'
+import { UpdateForm } from './Screens/update/'
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -33,15 +36,18 @@ const Modals = React.lazy(() => import('./views/Notifications/Modals'));
 const Colors = React.lazy(() => import('./views/Theme/Colors'));
 const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
-const Users = React.lazy(() => import('./views/Users/Users'));
-const User = React.lazy(() => import('./views/Users/User'));
-
+const List = React.lazy(() => import('./Screens/list'));
+const Create = React.lazy(() => import('./Screens/create'));
+const Update = React.lazy(() => import('./Screens/update'));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
+  { path: '/theme/list', name: 'CRUDTable', component: SimpleTable },
+  { path: '/theme/create', name: 'CreateForm', component: CreateForm },
+  { path: '/theme/update', name: 'UpdateForm', component: UpdateForm },
+
   { path: '/theme/typography', name: 'Typography', component: Typography },
   { path: '/base', exact: true, name: 'Base', component: Cards },
   { path: '/base/cards', name: 'Cards', component: Cards },
@@ -77,8 +83,8 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  // { path: '/users', exact: true, name: 'Users', component: Users },
+  // { path: '/users/:id', exact: true, name: 'User Details', component: User },
 ];
 
 export default routes;
