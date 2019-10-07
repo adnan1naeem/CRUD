@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as Yup from 'yup';
 
 import Card from '@material-ui/core/Card';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -6,14 +7,32 @@ import CloseIcon from '@material-ui/icons/Close';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Formik } from 'formik';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import SuccessIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
 
 const Axios = require('axios');
 
 export const headers = {
-    'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzAwODM4MTIsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.3txopstlre2yAsfm3Mb0A0BY1fHUgXf1IOZiMFliXwQ'
+    'Authorization': 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzA0NjcxNTcsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.mBCYhH_fWbij20bUJBpyQqWEKbaG2L3nhLSSWf6_fmU'
 }
+
+
+// const SignupSchema = Yup.object().shape({
+//     code: Yup.string()
+//         .required('Please enter code')
+//         .min(3, 'code is too short!'),
+
+//     description: Yup.string()
+//         .min(2, 'description is too short!')
+//         .max(100, 'description is too long!')
+//         .required('Please enter  description!'),
+//     PaySlip: Yup.string()
+//         .required('Required'),
+//     NoOfDays: Yup.number()
+//         .required('Required'),
+
+// });
 
 export class UpdateForm extends React.Component {
 
@@ -37,7 +56,7 @@ export class UpdateForm extends React.Component {
 
 
         Axios.get('http://acerondrug.com:8888/api/leavetypes', { headers: headers }).then((response) => {
-            const Item = response.data.filter((Items) => Items.leaveTypeID === this.props.history.location.state.detail.leaveTypeID)
+            const Item = response.data.filter((Items) => Items.leaveTypeID === this.props.history.location.state.detail)
             this.setState({ nameInPayslip: Item[0].nameInPayslip, remarks: Item[0].remarks, isConvertibleToCash: Item[0].isConvertibleToCash, isPaid: Item[0].isPaid, code: Item[0].code, nameInPayslip: Item[0].nameInPayslip, noOfDays: Item[0].noOfDays, active: Item[0].active })
 
         }).catch((error) => {
@@ -53,10 +72,10 @@ export class UpdateForm extends React.Component {
 
 
     onSubmit = (values, _actions) => {
-
-        Axios.put('http://acerondrug.com:8888/api/crud types',
+        alert(this.props.history.location.state.detail);
+        Axios.put('http://acerondrug.com:8888/api/crudtypes',
             {
-                "leaveTypeID": this.props.history.location.state.detail.leaveTypeID,
+                "leaveTypeID": this.props.history.location.state.detail,
                 "code": values.code,
                 "nameInPayslip": values.nameInPayslip,
                 "remarks": values.remarks,
@@ -76,7 +95,7 @@ export class UpdateForm extends React.Component {
                 console.log('update', response);
                 this.props.history.push('/');
             }).catch((error) => {
-
+                alert(error)
                 return error;
             });
 
@@ -99,8 +118,13 @@ export class UpdateForm extends React.Component {
                 enableReinitialize
                 initialValues={{ code, nameInPayslip, remarks, noOfDays, isPaid, isConvertibleToCash, active }}
                 onSubmit={this.onSubmit}
-                render={({ values, handleSubmit, handleChange,
-                }) => (
+                // validationSchema={SignupSchema}
+
+                render={({ errors, values, handleSubmit, handleChange,
+                }) => {
+                    const descriptionLength = values.remarks.length;
+
+                    return (
                         <div style={{ height: '100%', alignContent: 'center', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Card style={{ padding: 8, marginLeft: 400, marginTop: 150, justifyContent: 'center', width: 600 }}>
 
@@ -118,7 +142,10 @@ export class UpdateForm extends React.Component {
                                                         variant="outlined"
                                                         id="standard-name"
                                                         label="Code"
+                                                        helperText={errors && errors.code ? errors.code : ''}
+                                                        error={!!errors.code}
                                                         value={values.code}
+                                                        required
                                                         onChange={handleChange}
                                                         fullWidth
                                                         margin="normal"
@@ -129,7 +156,13 @@ export class UpdateForm extends React.Component {
                                                         name='remarks'
                                                         variant="outlined"
                                                         label="description"
+                                                        required
                                                         fullWidth
+                                                        helperText={errors && errors.remarks ? errors.remarks : ''}
+                                                        error={!!errors.remarks}
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">{`${descriptionLength}/100`}</InputAdornment>,
+                                                        }}
                                                         value={values.remarks}
                                                         onChange={handleChange}
                                                         margin="normal"
@@ -138,6 +171,7 @@ export class UpdateForm extends React.Component {
                                                         name='nameInPayslip'
                                                         variant="outlined"
                                                         label="NameInPayslip"
+                                                        required
                                                         fullWidth
                                                         value={values.nameInPayslip}
                                                         onChange={handleChange}
@@ -173,6 +207,7 @@ export class UpdateForm extends React.Component {
                                                     fullWidth
                                                     name='noOfDays'
                                                     variant="outlined"
+                                                    required
                                                     label="Max No of Days"
                                                     value={values.noOfDays}
                                                     onChange={handleChange}
@@ -181,16 +216,16 @@ export class UpdateForm extends React.Component {
                                                 <FormControlLabel
                                                     control={
                                                         <Checkbox
+                                                            required
                                                             name='active'
                                                             checked={values.active}
                                                             value={values.active}
                                                             onChange={handleChange('active')}
-
-
                                                         />
                                                     }
-                                                    label="Active"
+                                                    label="Status"
                                                 />
+
                                             </div>
 
                                             <div style={{ float: 'right', flex: 1, flexDirection: 'row-reverse' }}>
@@ -208,7 +243,8 @@ export class UpdateForm extends React.Component {
                             </Card>
                         </div>
 
-                    )}
+                    )
+                }}
             />
         );
     }
