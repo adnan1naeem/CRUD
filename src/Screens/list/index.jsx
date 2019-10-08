@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import MaterialTable from 'material-table';
 
 const Axios = require('axios');
-localStorage.setItem('token', 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzA1MjcyMzQsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.Kq7d9iqRTvSwN9XuCcYf5lymoo2P7iQSh4TcaGKU4e0');
+localStorage.setItem('token', 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzA1MzQyMDgsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.GYSCO3oNFbTQoFeACgqXfEnfBN82OGDsoBHRc4X7dXg');
 
 const token = localStorage.getItem('token')
 
@@ -102,14 +102,14 @@ export class SimpleTable extends React.Component {
 					<MaterialTable
 						title="Terms and Seminars"
 						columns={[
-							{ title: 'Item', field: 'leaveTypeID' },
+							{ title: 'Item', field: 'leaveTypeID', sorting: true },
 
 							{ title: 'Code', field: 'code' },
-							{ title: 'Name in PaySlip', field: 'nameInPayslip', type: 'numeric' },
-							{ title: 'No of DAYS', field: 'noOfDays', type: 'numeric' },
-							{ title: 'Paid/unPaid', field: 'isPaid', type: 'numeric' },
-							{ title: 'Convertible to Cash', field: 'isConvertibleToCash', type: 'numeric' },
-							{ title: 'Status', field: 'active', type: 'numeric' },
+							{ title: 'Name in PaySlip', field: 'nameInPayslip', sorting: true },
+							{ title: 'No of DAYS', field: 'noOfDays', sorting: true },
+							{ title: 'Paid/unPaid', field: 'isPaid', sorting: true },
+							{ title: 'Convertible to Cash', field: 'isConvertibleToCash', sorting: true },
+							{ title: 'Status', field: 'active', sorting: true },
 
 						]}
 						data={this.state.response}
