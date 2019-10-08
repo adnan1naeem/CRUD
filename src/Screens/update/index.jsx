@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SuccessIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
+import get from 'lodash.get';
 
 const Axios = require('axios');
 const token = localStorage.getItem('token')
@@ -57,17 +58,24 @@ export class UpdateForm extends React.Component {
 
 
     componentDidMount() {
+        const detail = get(this.props, 'history.location.state.detail', '');
 
+        if (detail) {
 
-        Axios.get('http://acerondrug.com:8888/api/leavetypes', { headers: headers }).then((response) => {
-            const Item = response.data.filter((Items) => Items.leaveTypeID === this.props.history.location.state.detail)
-            this.setState({ nameInPayslip: Item[0].nameInPayslip, remarks: Item[0].remarks, isConvertibleToCash: Item[0].isConvertibleToCash, isPaid: Item[0].isPaid, code: Item[0].code, nameInPayslip: Item[0].nameInPayslip, noOfDays: Item[0].noOfDays, active: Item[0].active })
+            Axios.get('http://acerondrug.com:8888/api/leavetypes', { headers: headers }).then((response) => {
+                const Item = response.data.filter((Items) => Items.leaveTypeID === this.props.history.location.state.detail)
+                this.setState({ nameInPayslip: Item[0].nameInPayslip, remarks: Item[0].remarks, isConvertibleToCash: Item[0].isConvertibleToCash, isPaid: Item[0].isPaid, code: Item[0].code, nameInPayslip: Item[0].nameInPayslip, noOfDays: Item[0].noOfDays, active: Item[0].active })
 
-        }).catch((error) => {
-            alert(error);
-            return error;
-        });
+            }).catch((error) => {
+                alert(error);
+                return error;
+            });
+        }
+        else {
+            this.props.history.push('/theme/list');
+        }
     }
+
 
 
 

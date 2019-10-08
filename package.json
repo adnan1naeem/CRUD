@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@material-ui/icons": "^4.4.3",
+    "lodash.get": "^4.4.2",
     "react-scripts": "^3.0.1"
   },
   "scripts": {
