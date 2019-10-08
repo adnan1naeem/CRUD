@@ -26,16 +26,16 @@ const SignupSchema = Yup.object().shape({
         .min(3, 'code is too short!')
         .max(30, 'code is too large!'),
 
-    description: Yup.string()
-        .min(2, 'description is too short!')
-        .max(100, 'description is too long!')
-        .required('Please enter  description!'),
-    PaySlip: Yup.string()
-        .max(30, 'description is too long!')
+    // description: Yup.string()
+    //     .min(2, 'description is too short!')
+    //     .max(100, 'description is too long!')
+    //     .required('Please enter  description!'),
+    // PaySlip: Yup.string()
+    //     .max(30, 'description is too long!')
 
-        .required('Required'),
-    NoOfDays: Yup.number()
-        .required('Required'),
+    //     .required('Required'),
+    // NoOfDays: Yup.number()
+    //     .required('Required'),
 
 });
 
