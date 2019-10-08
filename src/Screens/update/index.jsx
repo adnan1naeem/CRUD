@@ -128,7 +128,7 @@ export class UpdateForm extends React.Component {
                 }) => {
 
                     const descriptionLength = values.remarks.length;
-                    const nameInPayslipLength = values.PaySlip.length;
+                    const nameInPayslipLength = values.nameInPayslip.length;
                     const codeLength = values.code.length;
 
                     return (
