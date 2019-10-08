@@ -23,7 +23,6 @@ export const headers = {
 const SignupSchema = Yup.object().shape({
     code: Yup.string()
         .required('Please enter code')
-        .min(3, 'code is too short!')
         .max(30, 'code is too large!'),
 
     // description: Yup.string()
