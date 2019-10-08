@@ -9,6 +9,7 @@ import { Formik } from 'formik';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SuccessIcon from '@material-ui/icons/Done';
+import Switch from "react-switch";
 import TextField from '@material-ui/core/TextField';
 import get from 'lodash.get';
 
@@ -139,8 +140,8 @@ export class UpdateForm extends React.Component {
                     const codeLength = values.code.length;
 
                     return (
-                        <div style={{ height: '100%', alignContent: 'center', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Card style={{ padding: 8, marginLeft: 150, marginTop: 40, justifyContent: 'center', width: 600 }}>
+                        <div style={{ width: window.innerWidth, height: '100%', alignContent: 'center', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Card style={{ padding: 8, justifyContent: 'center', width: 600 }}>
 
                                 <form onSubmit={handleSubmit}>
                                     <div style={{
@@ -215,7 +216,7 @@ export class UpdateForm extends React.Component {
                                                         <Checkbox
                                                             disabled={values.isPaid === true ? false : true}
                                                             name='isConvertibleToCash'
-                                                            checked={values.isPaid === true ? true : false}
+                                                            checked={values.isConvertibleToCash}
                                                             value={values.isConvertibleToCash}
                                                             onChange={handleChange('isConvertibleToCash')}
 
@@ -234,18 +235,16 @@ export class UpdateForm extends React.Component {
                                                     onChange={handleChange}
                                                     margin="normal"
                                                 />
-                                                <FormControlLabel
-                                                    control={
-                                                        <Checkbox
-                                                            required
-                                                            name='active'
-                                                            checked={values.active}
-                                                            value={values.active}
-                                                            onChange={handleChange('active')}
-                                                        />
-                                                    }
-                                                    label="Status"
-                                                />
+
+
+                                                <div style={{ flex: 1, flexDirection: 'row', width: 300 }}>
+                                                    <div style={{ flex: 1 }}>
+                                                        <span>Status</span>
+                                                    </div>
+                                                    <div style={{ marginTop: 2 }}>
+                                                        <Switch onChange={handleChange('active')} checked={values.active} />
+                                                    </div>
+                                                </div>
 
                                             </div>
 

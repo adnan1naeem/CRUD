@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import MaterialTable from 'material-table';
 
 const Axios = require('axios');
-localStorage.setItem('token', 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzA1MTQ4OTYsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.8bdT4jaJm1qqzcIJnKCescdxThmFJDAa_4efWz_3Gvg');
+localStorage.setItem('token', 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIkdyb3VwIjoiR3JvdXAiLCJleHAiOjE1NzA1MjcyMzQsImlzcyI6ImxlbXVlbC5pbiIsImF1ZCI6InJlYWRlcnMifQ.Kq7d9iqRTvSwN9XuCcYf5lymoo2P7iQSh4TcaGKU4e0');
 
 const token = localStorage.getItem('token')
 
@@ -81,7 +81,7 @@ export class SimpleTable extends React.Component {
 		this.array.map((Item, i) => {
 			Item.isConvertibleToCash === true ? this.array[i].isConvertibleToCash = 'Yes' : this.array[i].isConvertibleToCash = 'No'
 			Item.isPaid === true ? this.array[i].isPaid = 'Paid' : this.array[i].isPaid = 'UnPaid'
-			Item.active === true ? this.array[i].active = 'Active' : this.array[i].isPaid = 'InActive'
+			Item.active === true ? this.array[i].active = 'Active' : this.array[i].active = 'InActive'
 
 		}
 
