@@ -135,9 +135,9 @@ export class UpdateForm extends React.Component {
                 render={({ errors, values, handleSubmit, handleChange,
                 }) => {
 
-                    const descriptionLength = values && values.remarks ? values.remarks.length : null;
-                    const nameInPayslipLength = values.nameInPayslip.length;
-                    const codeLength = values.code.length;
+                    const descriptionLength = values && values.remarks ? values.remarks.length : 0;
+                    const nameInPayslipLength = values && values.nameInPayslip ? values.nameInPayslip.length : 0;;
+                    const codeLength = values && values.code ? values.code.length : 0;
 
                     return (
                         <div style={{ width: window.innerWidth, height: '100%', alignContent: 'center', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
